@@ -74,7 +74,7 @@ Example:
           /**
            * Returns the current transcript string
            */
-          transcript: {
+          finalTranscript: {
             type: String,
             value: ''
           },
@@ -82,7 +82,7 @@ Example:
           /* 
            * Returns the complete transcript string for the continuous recognition 
            */
-          completeTranscript: {
+          interimTranscript: {
             type: String,
             value: ''
           },
@@ -106,10 +106,10 @@ Example:
             this.recognition.continuous = true;
             this.recognition.interimResults = true;
 
-            this.recognition.onstart = this.start.bind(this);
-            this.recognition.onend = this.end.bind(this);
-            this.recognition.onresult = this.result.bind(this);
-            this.recognition.onerror = this.error.bind(this);
+            this.recognition.onstart = this._onStart.bind(this);
+            this.recognition.onend = this._onEnd.bind(this);
+            this.recognition.onresult = this._onResult.bind(this);
+            this.recognition.onerror = this._onError.bind(this);
             
             // this.recognition.lang = this.language;
           } else {
@@ -164,19 +164,20 @@ Example:
       },
       
       _onResult: function(e) {
-        var t, ct = '', isFinal;
-        for (var i = 0, r; r = e.results[i]; i++) {
-          t = r[0] && r[0].transcript || '';
-          ct += t;
-          isFinal = r.isFinal;
+        // reset interim transcript
+        this.interimTranscript= '';
+
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            this.finalTranscript += event.results[i][0].transcript;
+          } else {
+            this.interimTranscript += event.results[i][0].transcript;
+          }
         }
-        this.transcript = t;
-        this.completeTranscript = ct;
         this.fire('speech-mic-result', {
           results: e.results,
-          transcript: t,
-          completeTranscript: ct,
-          isFinal: isFinal
+          finalTranscript: this.finalTranscript,
+          interimTranscript: this.interimTranscript,
         });
       },
       
@@ -190,8 +191,8 @@ Example:
        * @event speech-mic-result
        * @param {Object} detail
        *   @param {Object} detail.results SpeechRecognitionEvent object
-       *   @param {Object} detail.transcript The current transcript string
-       *   @param {Object} detail.completeTranscript The complete transcript 
+       *   @param {Object} detail.finalTranscript The current transcript string
+       *   @param {Object} detail.interimTranscript The complete transcript 
        *                   string for the continuous recognition.
        */
     });
