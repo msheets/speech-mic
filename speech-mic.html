@@ -70,7 +70,7 @@ Example:
     </style>
 
     <div id="pulseSource"></div>
-    <paper-fab id="button" mini icon="av:mic" toggles></paper-fab>
+    <paper-fab id="button" mini=[[mini]] icon="av:mic" toggles></paper-fab>
 
   </template>
 
@@ -114,7 +114,16 @@ Example:
             value: false,
             notify: false,
             reflectToAttribute: true
-          }
+          },
+
+          /**
+           * Set this to true to style this is a "mini" FAB.
+           */
+          mini: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+          },
         },
 
         listeners: {
