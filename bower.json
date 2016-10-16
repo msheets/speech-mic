@@ -1,7 +1,30 @@
 {
   "name": "speech-mic",
+  "version": "1.0.1",
+  "description": "Speech recognition component triggered via a microphone icon",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "keywords": [
+    "web-componenets",
+    "web-component",
+    "polymer",
+    "microphone",
+    "mic",
+    "speech"
+  ],
+  "main": "speech-mic.html",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerLabs/speech-mic.git"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/PolymerLabs/speech-mic",
   "dependencies": {
-    "polymer": "Polymer/polymer#master"
+    "polymer": "^1.7.0"
+  },
+  "devDependencies": {
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   }
 }
