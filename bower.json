@@ -22,7 +22,9 @@
   "license": "http://polymer.github.io/LICENSE.txt",
   "homepage": "https://github.com/PolymerLabs/speech-mic",
   "dependencies": {
-    "polymer": "^1.7.0"
+    "polymer": "^1.7.0",
+    "iron-icons": "PolymerElements/iron-icons#^1.1.3",
+    "paper-fab": "PolymerElements/paper-fab#^1.2.0"
   },
   "devDependencies": {
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
