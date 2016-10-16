@@ -34,42 +34,44 @@ Example:
       :host {
         display: inline-block;
         position: relative;
-        width: 40px;
-        height: 40px;
         cursor: pointer;
-         --paper-fab-background: blue;
-         --paper-fab-keyboard-focus-background: blue;
+      
+        --accent-color: var(--paper-red-500);
+        --paper-fab-keyboard-focus-background: var(--accent-color); 
+
+        /* NOTE: Both values are needed, since some phones require the value `transparent`. */
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-tap-highlight-color: transparent;
       }
 
-      :host[recognizing] {
-        --paper-fab-background: red;
-        --paper-fab-keyboard-focus-background: red;  
-        --paper-fab: {
-          box-shadow: 0 0 0 20px rgba(255, 0, 0, 0.2);
-          animation: pulse 1.5s ease infinite;
-        }
+      /* use a separate source so as to maintain FAB box-shadow */
+      #pulseSource {
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+
+      :host[recognizing] #pulseSource{
+        animation: pulse 1.5s ease infinite;
       }
 
       @keyframes pulse {
         0% {
           transform: scale(1);
+          box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.4);
         }
-        30% {
-          transform: scale(1.2);
-        }
-        50% {
-          box-shadow: 0 0 0 20px rgba(255, 0, 0, 0.2);
-        }
-        80% {
-          transform: scale(1)
+        99% {
+          box-shadow: 0 0 0 30px rgba(255, 0, 0, 0.0);
         }
       }
-        
-
     </style>
 
-    <paper-fab id="button" icon="av:mic"></paper-fab>
-  
+    <div id="pulseSource"></div>
+    <paper-fab id="button" mini icon="av:mic" toggles></paper-fab>
+
   </template>
 
   <script>
