@@ -149,21 +149,21 @@ Example:
         }
       },
       
-      start: function(e) {
+      _onStart: function(e) {
         this.recognizing = true;
         this.updateStyles();
       },
       
-      end: function() {
+      _onEnd: function() {
         this.recognizing = false;
         this.updateStyles();
       },
       
-      stop: function() {
+      _onStop: function() {
         this.recognition && this.recognition.stop();
       },
       
-      result: function(e) {
+      _onResult: function(e) {
         var t, ct = '', isFinal;
         for (var i = 0, r; r = e.results[i]; i++) {
           t = r[0] && r[0].transcript || '';
@@ -180,7 +180,7 @@ Example:
         });
       },
       
-      error: function(e) {
+      _onError: function(e) {
         console.log(e);
       }
 
